@@ -92,25 +92,26 @@ Params: dictionary of cumulative frequencies, desired sentence length.
 Returns: a sentence with the given length.
 """
 def buildSentence(cumFrequencies, length):
+    # converts cumFrequencies to a tuple of words and their cumulative
+    # probability.
+    cumFrequencies = sorted(cumFrequencies.items(), key=lambda x: x[1])
     sentence = ""
     for i in range(length):
         value = random.uniform(0.0,1)
-        print "Value:", value
         for word in cumFrequencies:
-            if cumFrequencies[word] > value:
+            if word[1] > value:
                 if i == 0:
                     firstWord = ""
-                    firstWord += word[0].upper()
-                    firstWord += word[1:]
+                    firstWord += word[0][0].upper()
+                    firstWord += word[0][1:]
                     sentence += firstWord
                 else:
-                    sentence += " " + word
+                    sentence += " " + word[0]
                 break
     sentence += "."
     return sentence
 
 if __name__ == "__main__":
-    print "Starting."
     tokenized = tokenizedBrown()
     totalWordCount = getTotalWordCount(tokenized)
     wordCounts = getWordCounts(tokenized)
