@@ -2,7 +2,9 @@
 Team Member #1: Trevor Greenside
 Team Member #2: None
 Zagmail address for Team Member #1: tgreenside@zagmail.gonzaga.edu
-Project 6: This project
+Project 6: This project focuses on unigrams and uses statistics via
+the Bogensberger-Johnson Cumulative Probability Technique to construct
+sentences.
 Due: 24 October 2018
 Usage: python proj6.py
 """
@@ -82,6 +84,13 @@ def getCumFrequencies(relFrequencies):
         previous = previous + float(relFrequencies[word])
     return cumFrequencies
 
+"""
+Builds a sentence with the given length, using the Bogensberger-Johnson
+Technique.
+
+Params: dictionary of cumulative frequencies, desired sentence length.
+Returns: a sentence with the given length.
+"""
 def buildSentence(cumFrequencies, length):
     sentence = ""
     for i in range(length):
