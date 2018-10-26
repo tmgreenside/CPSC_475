@@ -28,7 +28,7 @@ def tokenizedBrown():
         newSentence = []
         for word in sentence:
             if word not in ['.','!','?',',','"','`','/',
-            '\\','-','_',':',';','``','(',')']:
+            '\\','-','_',':',';','``','(',')','--','\'\'']:
                 newSentence.append(word)
         newTokens.append(newSentence)
     return [[word.lower() for word in sentence] for sentence in newTokens]
