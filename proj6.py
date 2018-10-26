@@ -123,4 +123,4 @@ if __name__ == "__main__":
     cumFrequencies = getCumFrequencies(relFrequencies)
 
     for i in range(5):
-        print(buildSentence(cumFrequencies, 10))
+       print(buildSentence(cumFrequencies, 10))
