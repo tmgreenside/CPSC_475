@@ -22,12 +22,16 @@ Returns: tokenized Brown Editorial corpus.
 def tokenizedBrown():
     tmp = brown.sents(categories='editorial')
     new = [[item.encode('ascii') for item in lst] for lst in tmp]
+    newTokens = []
     # remove periods and make all characters lowercase
     for sentence in new:
+        newSentence = []
         for word in sentence:
-            if word == '.':
-                sentence.remove(word)
-    return [[word.lower() for word in sentence] for sentence in new]
+            if word not in ['.','!','?',',','"','`','/',
+            '\\','-','_',':',';','``','(',')']:
+                newSentence.append(word)
+        newTokens.append(newSentence)
+    return [[word.lower() for word in sentence] for sentence in newTokens]
 
 """
 Takes a tokenized corpus and returns a dictionary containing the number
