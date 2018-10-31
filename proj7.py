@@ -62,6 +62,8 @@ def tokenizeShakespeare(fileName):
 def generateGrams(tokens):
     # setup variables
     # tokens list created in main
+
+    # unique words, bigrams, trigrams, quadgrams
     types = []
     
     # CREATE UNIGRAMS
@@ -78,8 +80,12 @@ def generateGrams(tokens):
     
     # CREATE BIGRAMS
     # create 2-tuples as key for bigrams dictionary
-    #
     bigrams = {}
+    
+    # create 2-tuples?
+    for i in :
+        for i in range(2):
+            t1 = (
     
 
     # CREATE TRIGRAMS
@@ -152,7 +158,7 @@ def calculateProbabilities(tokens, types, totalTokens, totalTypes, prob, probPre
 
     dictionary.update({word : (prob, cumulativeProb)})
 
-return dictionary
+    return dictionary
 
 
 
