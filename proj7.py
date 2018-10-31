@@ -83,9 +83,10 @@ def generateGrams(tokens):
     bigrams = {}
 
     # create 2-tuples?
-    for i in tokens:
-        for i in range(2):
-            t1 = (i,)
+    for i in range (len(tokens)):
+        for j in range(len(tokens[i]) - 1):
+            if bigrams[tokes[i][j], tokens[i][j+1]]:
+
 
     # CREATE TRIGRAMS
     # create 3-tuples as key for trigrams dictionary
@@ -145,7 +146,7 @@ def calculateProbabilities(tokens, types, totalTokens, totalTypes, prob, probPre
         prob = 0.0
         for token in tokens:
             if token == type:
-                typeCount +=1.0
+                typeCount += 1.0
 
         # Probability = number of appearances / number of tokens
         prob = typeCount / totalTokens
