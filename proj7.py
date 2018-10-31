@@ -53,11 +53,11 @@ def tokenizeShakespeare(fileName):
     return new
 
 """
-    TODO: 4. Generate Grams
+TODO: 4. Generate Grams
 
-    Create unigrams, bigrams, trigrams, and quadgrams from the tokenized list.
-    Compute their probabilities and cumulative probabilities
-    Create a data structure that holds the grams and their cumulative probabilities
+Create unigrams, bigrams, trigrams, and quadgrams from the tokenized list.
+Compute their probabilities and cumulative probabilities
+Create a data structure that holds the grams and their cumulative probabilities
 """
 def generateGrams(tokens):
     # setup variables
@@ -65,28 +65,27 @@ def generateGrams(tokens):
 
     # unique words, bigrams, trigrams, quadgrams
     types = []
-    
+
     # CREATE UNIGRAMS
     unigrams = {}
-    
+
     # totalTokens: amount of tokens in the tokens list
     totalTokens = len(tokens)
-    
+
     # fill types list and find totalTypes: amount of types in the types list
     types, totalTypes = fillTypes(types, tokens)
-    
+
     # Calculate the probabilties
     calculateProbabilities(tokens, types, totalTokens, totalTypes, prob, probPrev, cumulativeProb, cumulativeProbPrev, word, unigrams)
-    
+
     # CREATE BIGRAMS
     # create 2-tuples as key for bigrams dictionary
     bigrams = {}
-    
+
     # create 2-tuples?
     for i in tokens:
         for i in range(2):
             t1 = (i,)
-    
 
     # CREATE TRIGRAMS
     # create 3-tuples as key for trigrams dictionary
@@ -98,7 +97,7 @@ def generateGrams(tokens):
 
 """
     FILLTYPES
-    
+
     fill the types list with unique tokens
     loop through tokens to find unique occurences of each word
 """
@@ -122,14 +121,14 @@ def calculateBigrams(tokens, bigrams):
 CALCULATE TRIGRAMS
 """
 def calculateTrigrams(tokens, trigrams):
-    
+
     return trigrams
 
 """
 CALCULATE QUADGRAMS
 """
 def calculateQuadgrams(tokens, quadgrams):
-    
+
     return quadgrams
 
 """
@@ -137,7 +136,7 @@ CALCULATE PROBABILITIES
 calculate probability and cumulativeProbability
 """
 def calculateProbabilities(tokens, types, totalTokens, totalTypes, prob, probPrev, cumulativeProb, cumulativeProbPrev, word, dictionary):
-    
+
     #typeCount: used for calculating probability
 
     for type in types:
@@ -147,11 +146,11 @@ def calculateProbabilities(tokens, types, totalTokens, totalTypes, prob, probPre
         for token in tokens:
             if token == type:
                 typeCount +=1.0
-    
+
         # Probability = number of appearances / number of tokens
         prob = typeCount / totalTokens
         probPrev = prob
-        
+
         # Cumulative Probability = (cumulativeProbability + prob) of i-1
         cumulativeProb = probPrev + cumulativeProbPrev
         cumulativeProbPrev = cumulativeProb
@@ -164,10 +163,10 @@ def calculateProbabilities(tokens, types, totalTokens, totalTypes, prob, probPre
 
 """
     TODO: 5. Generate Grams Sequences
-    
+
     For each gram type, generate random sentences using the Bogensberg-Johnson technique. The
     first word in each sentence is capitalized.  The sentence ends with a period.  All sentences appear on a single line.
-    
+
     Sentence Length:
         unigrams: 12 words
         bigrams: 6 bigrams
