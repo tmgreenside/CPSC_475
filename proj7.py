@@ -83,9 +83,9 @@ def generateGrams(tokens):
     bigrams = {}
     
     # create 2-tuples?
-    for i in :
+    for i in tokens:
         for i in range(2):
-            t1 = (
+            t1 = (i,)
     
 
     # CREATE TRIGRAMS
