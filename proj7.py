@@ -50,15 +50,17 @@ def tokenizeShakespeare(fileName):
     for line in text:
         if line.lstrip() != "":
             for char in ['.','!','?',',','"','`','/','[',']',
-            '\\','-','_',':',';','``','(',')','--','\'\'']:
+                        '\\','-','_',':',';','``','(',')','--',
+                         '\'\'', '', '\n']:
                 if char in line:
                     line = line.replace(char, "")
             line = line.lower().split()
-            newline = ["<s>"]
+            #newline = ["<s>"]
+            newline = [""]
             for word in line:
                 newline.append(word)
-            newline.append("</s>")
-            new.append(newline)
+                #newline.append("</s>")
+                new.append(newline)
     return new
 
 """
