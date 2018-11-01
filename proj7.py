@@ -243,8 +243,11 @@ def buildNgramSentence(cumFrequencies, length, includeMarkers=False):
     return sentence
 
 if __name__ == "__main__":
-    markers = raw_input("Would you like to include start and end markers? (yes/no)")
-    if markers.lower() == "yes":
+
+    numSentences = 5
+
+    markers = raw_input("Would you like to include start and end markers? (Y/N)\n")
+    if "y" in markers.lower():
         includeMarkers = True
     else:
         includeMarkers = False
@@ -279,21 +282,21 @@ if __name__ == "__main__":
     #PRINT SENTENCES - no <s> </s>
     print ""
     print "Unigram sentences:"
-    for i in range(1):
+    for i in range(numSentences):
         unigramSentence = buildNgramSentence(unigramsCumFreq, 12)
         print(unigramSentence)
     print ""
     print "Bigram sentences:"
-    for i in range(1):
+    for i in range(numSentences):
         bigramSentence = buildNgramSentence(bigramsCumFreq, 6, includeMarkers)
         print(bigramSentence)
     print ""
     print "Trigram sentences:"
-    for i in range(1):
+    for i in range(numSentences):
         trigramSentence = buildNgramSentence(trigramsCumFreq, 4, includeMarkers)
         print(trigramSentence)
     print ""
     print "Quadgram sentences:"
-    for i in range(1):
+    for i in range(numSentences):
         quadgramSentence = buildNgramSentence(quadgramsCumFreq, 3, includeMarkers)
         print(quadgramSentence)
