@@ -239,40 +239,54 @@ def buildNgramSentence(cumFrequencies, length):
     return sentence
 
 if __name__ == "__main__":
+    # CREATE TOKENS
     tokens = tokenizeShakespeare("100-0.txt")
+    
+    # UNIGRAMS
     unigrams = generateUnigrams(tokens)
     unigramsRelFreq = getRelFrequencies(unigrams, getNgramCount(unigrams))
     unigramsCumFreq = getCumFrequencies(unigramsRelFreq)
     print "Unigrams generated."
     
+    # BIGRAMS
     bigrams = generateBigrams(tokens)
     bigramsRelFreq = getRelFrequencies(bigrams, getNgramCount(bigrams))
     bigramsCumFreq = getCumFrequencies(bigramsRelFreq)
     print "Bigrams generated."
     
+    #TRIGRAMS
     trigrams = generateTrigrams(tokens)
     trigramsRelFreq = getRelFrequencies(trigrams, getNgramCount(trigrams))
     trigramsCumFreq = getCumFrequencies(trigramsRelFreq)
     print "Trigrams generated."
+    
+    #QUADGRAMS
     quadgrams = generateQuadgrams(tokens)
     quadgramsRelFreq = getRelFrequencies(quadgrams, getNgramCount(quadgrams))
     quadgramsCumFreq = getCumFrequencies(quadgramsRelFreq)
     print "Quadgrams generated."
     
+    #PRINT SENTENCES - no <s> </s>
     print ""
     print "Unigram sentences:"
     for i in range(1):
-        print(buildNgramSentence(unigramsCumFreq, 12))
+        unigramSentence = buildNgramSentence(unigramsCumFreq, 12)
+        print(unigramSentence)
     print ""
     print "Bigram sentences:"
     for i in range(1):
-        print(buildNgramSentence(bigramsCumFreq, 6))
+        bigramSentence = buildNgramSentence(bigramsCumFreq, 6)
+        print(bigramSentence)
     print ""
     print "Trigram sentences:"
     for i in range(1):
-        print(buildNgramSentence(trigramsCumFreq, 4))
+        trigramSentence = buildNgramSentence(trigramsCumFreq, 4)
+        print(trigramSentence)
     print ""
     print "Quadgram sentences:"
     for i in range(1):
-        print(buildNgramSentence(quadgramsCumFreq, 3))
+        quadgramSentence = buildNgramSentence(quadgramsCumFreq, 3)
+        print(quadgramSentence)
+
+
 
