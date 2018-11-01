@@ -56,7 +56,7 @@ def tokenizeShakespeare(fileName):
                     line = line.replace(char, "")
             line = line.lower().split()
             #newline = ["<s>"]
-            newline = [""]
+            newline = []
             for word in line:
                 newline.append(word)
                 #newline.append("</s>")
@@ -228,7 +228,6 @@ def buildNgramSentence(cumFrequencies, length, includeMarkers=False):
     for i in range(length):
         value = random.uniform(0.0,1)
         for word in cumFrequencies:
-            print word
             if word[1] > value and word[0] != "<s>" and word[0] != "</s>":
                 if i == 0:
                     firstWord = ""
