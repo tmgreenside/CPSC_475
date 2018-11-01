@@ -50,22 +50,24 @@ def tokenizeShakespeare(fileName):
     for line in text:
         if line.lstrip() != "":
             for char in ['.','!','?',',','"','`','/','[',']',
-            '\\','-','_',':',';','``','(',')','--','\'\'']:
+                        '\\','-','_',':',';','``','(',')','--',
+                         '\'\'', '', '\n']:
                 if char in line:
                     line = line.replace(char, "")
             line = line.lower().split()
-            newline = ["<s>"]
+            #newline = ["<s>"]
+            newline = [""]
             for word in line:
                 newline.append(word)
-            newline.append("</s>")
-            new.append(newline)
+                #newline.append("</s>")
+                new.append(newline)
     return new
 
 """
-Create monograms from the tokenized list. Create a data structure that holds
+Create unigrams from the tokenized list. Create a data structure that holds
 the grams and their occurence counts.
 """
-def generateMonograms(tokenizedCorpus):
+def generateUnigrams(tokenizedCorpus):
     wordCounts = {}
     for sentence in tokenizedCorpus:
         for word in sentence:
@@ -84,10 +86,11 @@ def generateBigrams(tokens):
 
     for i in range (len(tokens)):
         for j in range(len(tokens[i]) - 1):
-            if (tokens[i][j], tokens[i][j+1]) not in bigrams:
-                bigrams[(tokens[i][j], tokens[i][j+1])] = 1
+            bi = tokens[i][j] + ' ' + tokens[i][j+1]
+            if bi not in bigrams:
+                bigrams[bi] = 1
             else:
-                bigrams[(tokens[i][j], tokens[i][j+1])] += 1
+                bigrams[bi] += 1
 
     return bigrams
 
@@ -100,10 +103,11 @@ def generateTrigrams(tokens):
 
     for i in range (len(tokens)):
         for j in range(len(tokens[i]) - 2):
-            if (tokens[i][j], tokens[i][j+1], tokens[i][j+2]) not in bigrams:
-                bigrams[(tokens[i][j], tokens[i][j+1], tokens[i][j+2])] = 1
+            tri = tokens[i][j] + ' ' + tokens[i][j+1] + ' ' + tokens[i][j+2]
+            if tri not in trigrams:
+                trigrams[tri] = 1
             else:
-                bigrams[(tokens[i][j], tokens[i][j+1], tokens[i][j+2])] += 1
+                trigrams[tri] += 1
 
     return trigrams
 
@@ -116,10 +120,11 @@ def generateQuadgrams(tokens):
 
     for i in range (len(tokens)):
         for j in range(len(tokens[i]) - 3):
-            if (tokens[i][j], tokens[i][j+1], tokens[i][j+2], tokens[i][j+3]) not in bigrams:
-                bigrams[(tokens[i][j], tokens[i][j+1], tokens[i][j+2], tokens[i][j+3])] = 1
+            quad = tokens[i][j] + ' ' + tokens[i][j+1] + ' ' + tokens[i][j+2] + ' ' + tokens[i][j+3]
+            if quad not in quadgrams:
+                quadgrams[quad] = 1
             else:
-                bigrams[(tokens[i][j], tokens[i][j+1], tokens[i][j+2], tokens[i][j+3])] += 1
+                quadgrams[quad] += 1
 
     return quadgrams
 
@@ -173,36 +178,6 @@ def getCumFrequencies(relFrequencies):
         previous = previous + float(relFrequencies[ngram])
     return cumFrequencies
 
-# """
-# CALCULATE PROBABILITIES
-# calculate probability and cumulativeProbability
-# """
-# def calculateProbabilities(tokens, types, totalTokens, totalTypes, prob, probPrev, cumulativeProb, cumulativeProbPrev, word, dictionary):
-#
-#     #typeCount: used for calculating probability
-#
-#     for type in types:
-#         word = type
-#         typeCount = 0.0
-#         prob = 0.0
-#         for token in tokens:
-#             if token == type:
-#                 typeCount += 1.0
-#
-#         # Probability = number of appearances / number of tokens
-#         prob = typeCount / totalTokens
-#         probPrev = prob
-#
-#         # Cumulative Probability = (cumulativeProbability + prob) of i-1
-#         cumulativeProb = probPrev + cumulativeProbPrev
-#         cumulativeProbPrev = cumulativeProb
-#
-#     dictionary.update({word : (prob, cumulativeProb)})
-#
-#     return dictionary
-
-
-
 """
     TODO: 5. Generate Grams Sequences
 
@@ -218,12 +193,12 @@ def getCumFrequencies(relFrequencies):
 
 """
 Builds a sentence with the given length, using the Bogensberger-Johnson
-Technique and Monograms.
+Technique and Unigrams.
 
 Params: dictionary of cumulative frequencies, desired sentence length.
 Returns: a sentence with the given length.
 """
-def buildMonogramSentence(cumFrequencies, length):
+def buildUnigramSentence(cumFrequencies, length):
     # converts cumFrequencies to a tuple of words and their cumulative
     # probability.
     cumFrequencies = sorted(cumFrequencies.items(), key=lambda x: x[1])
@@ -244,23 +219,71 @@ def buildMonogramSentence(cumFrequencies, length):
     return sentence
 
 def buildNgramSentence(cumFrequencies, length):
+    # converts cumFrequencies to a tuple of words and their cumulative
+    # probability.
+    cumFrequencies = sorted(cumFrequencies.items(), key=lambda x: x[1])
     sentence = ""
-    
+    for i in range(length):
+        value = random.uniform(0.0,1)
+        for word in cumFrequencies:
+            if word[1] > value and word[0] != "<s>" and word[0] != "</s>":
+                if i == 0:
+                    firstWord = ""
+                    firstWord += word[0][0].upper()
+                    firstWord += word[0][1:]
+                    sentence += firstWord
+                else:
+                    sentence += " " + word[0]
+                break
+    sentence += "."
     return sentence
 
 if __name__ == "__main__":
+    # CREATE TOKENS
     tokens = tokenizeShakespeare("100-0.txt")
-    monograms = generateMonograms(tokens)
-    monogramsRelFreq = getRelFrequencies(monograms, getNgramCount(monograms))
-    monogramsCumFreq = getCumFrequencies(monogramsRelFreq)
-    print "Monograms generated."
+
+    # UNIGRAMS
+    unigrams = generateUnigrams(tokens)
+    unigramsRelFreq = getRelFrequencies(unigrams, getNgramCount(unigrams))
+    unigramsCumFreq = getCumFrequencies(unigramsRelFreq)
+    print "Unigrams generated."
+
+    # BIGRAMS
     bigrams = generateBigrams(tokens)
+    bigramsRelFreq = getRelFrequencies(bigrams, getNgramCount(bigrams))
+    bigramsCumFreq = getCumFrequencies(bigramsRelFreq)
     print "Bigrams generated."
+
+    #TRIGRAMS
     trigrams = generateTrigrams(tokens)
+    trigramsRelFreq = getRelFrequencies(trigrams, getNgramCount(trigrams))
+    trigramsCumFreq = getCumFrequencies(trigramsRelFreq)
     print "Trigrams generated."
+
+    #QUADGRAMS
     quadgrams = generateQuadgrams(tokens)
+    quadgramsRelFreq = getRelFrequencies(quadgrams, getNgramCount(quadgrams))
+    quadgramsCumFreq = getCumFrequencies(quadgramsRelFreq)
     print "Quadgrams generated."
+
+    #PRINT SENTENCES - no <s> </s>
     print ""
-    print "Monogram sentences:"
-    for i in range(5):
-       print(buildMonogramSentence(monogramsCumFreq, 10))
+    print "Unigram sentences:"
+    for i in range(1):
+        unigramSentence = buildNgramSentence(unigramsCumFreq, 12)
+        print(unigramSentence)
+    print ""
+    print "Bigram sentences:"
+    for i in range(1):
+        bigramSentence = buildNgramSentence(bigramsCumFreq, 6)
+        print(bigramSentence)
+    print ""
+    print "Trigram sentences:"
+    for i in range(1):
+        trigramSentence = buildNgramSentence(trigramsCumFreq, 4)
+        print(trigramSentence)
+    print ""
+    print "Quadgram sentences:"
+    for i in range(1):
+        quadgramSentence = buildNgramSentence(quadgramsCumFreq, 3)
+        print(quadgramSentence)
