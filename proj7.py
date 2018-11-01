@@ -245,7 +245,7 @@ def buildMonogramSentence(cumFrequencies, length):
 
 def buildNgramSentence(cumFrequencies, length):
     sentence = ""
-
+    
     return sentence
 
 if __name__ == "__main__":
