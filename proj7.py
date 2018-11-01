@@ -243,6 +243,12 @@ def buildNgramSentence(cumFrequencies, length, includeMarkers=False):
     return sentence
 
 if __name__ == "__main__":
+    markers = raw_input("Would you like to include start and end markers? (yes/no)")
+    if markers.lower() == "yes":
+        includeMarkers = True
+    else:
+        False
+
     # CREATE TOKENS
     tokens = tokenizeShakespeare("100-0.txt")
 
@@ -279,15 +285,15 @@ if __name__ == "__main__":
     print ""
     print "Bigram sentences:"
     for i in range(1):
-        bigramSentence = buildNgramSentence(bigramsCumFreq, 6)
+        bigramSentence = buildNgramSentence(bigramsCumFreq, 6, includeMarkers)
         print(bigramSentence)
     print ""
     print "Trigram sentences:"
     for i in range(1):
-        trigramSentence = buildNgramSentence(trigramsCumFreq, 4)
+        trigramSentence = buildNgramSentence(trigramsCumFreq, 4, includeMarkers)
         print(trigramSentence)
     print ""
     print "Quadgram sentences:"
     for i in range(1):
-        quadgramSentence = buildNgramSentence(quadgramsCumFreq, 3)
+        quadgramSentence = buildNgramSentence(quadgramsCumFreq, 3, includeMarkers)
         print(quadgramSentence)
