@@ -228,6 +228,7 @@ def buildNgramSentence(cumFrequencies, length, includeMarkers=False):
     for i in range(length):
         value = random.uniform(0.0,1)
         for word in cumFrequencies:
+            print word
             if word[1] > value and word[0] != "<s>" and word[0] != "</s>":
                 if i == 0:
                     firstWord = ""
@@ -247,7 +248,7 @@ if __name__ == "__main__":
     if markers.lower() == "yes":
         includeMarkers = True
     else:
-        False
+        includeMarkers = False
 
     # CREATE TOKENS
     tokens = tokenizeShakespeare("100-0.txt")
