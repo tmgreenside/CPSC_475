@@ -2,11 +2,11 @@
 Team Member #1: Trevor Greenside
 Team Member #2: Carol Joplin
 Zagmail address for Team Member #1: tgreenside@zagmail.gonzaga.edu
-Project 6: This project uses statistics, unigrams, bigrams, trigrams, and
+Project 7: This project uses statistics, unigrams, bigrams, trigrams, and
 quadgrams via the Bogensberger-Johnson Cumulative Probability Technique to
 construct sentences.
-Due: 24 October 2018
-Usage: python proj6.py
+Due: 1 November 2018
+Usage: python proj7.py
 """
 import random
 
@@ -139,21 +139,6 @@ def getNgramCount(ngramsSet):
     return count
 
 """
-FILLTYPES
-
-fill the types list with unique tokens.
-loop through tokens to find unique occurences of each word
-"""
-def fillTypes(types, tokens):
-    for word in tokens:
-        if word not in types:
-            types.append(word)
-
-    totalTypes = len(types)
-
-    return types, totalTypes
-
-"""
 Takes a dictionary of ngrams and their occurence count and returns a dictionary
 with the frequency of their occurence relative to the other ngrams.
 """
@@ -177,19 +162,6 @@ def getCumFrequencies(relFrequencies):
         cumFrequencies[ngram] = previous + float(relFrequencies[ngram])
         previous = previous + float(relFrequencies[ngram])
     return cumFrequencies
-
-"""
-    TODO: 5. Generate Grams Sequences
-
-    For each gram type, generate random sentences using the Bogensberg-Johnson technique. The
-    first word in each sentence is capitalized.  The sentence ends with a period.  All sentences appear on a single line.
-
-    Sentence Length:
-        unigrams: 12 words
-        bigrams: 6 bigrams
-        trigrams: 4 trigrams
-        quadgrams: 3 quagrams
-"""
 
 """
 Builds a sentence with the given length, using the Bogensberger-Johnson
