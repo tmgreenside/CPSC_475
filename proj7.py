@@ -216,7 +216,7 @@ def buildUnigramSentence(cumFrequencies, length):
     sentence += "."
     return sentence
 
-def buildBigramSentence(cumFrequencies, length):
+def buildNgramSentence(cumFrequencies, length):
     # converts cumFrequencies to a tuple of words and their cumulative
     # probability.
     cumFrequencies = sorted(cumFrequencies.items(), key=lambda x: x[1])
@@ -236,30 +236,41 @@ def buildBigramSentence(cumFrequencies, length):
     sentence += "."
     return sentence
 
-def buildNgramSentence(cumFrequencies, length):
-    sentence = ""
-
-    return sentence
-
 if __name__ == "__main__":
     tokens = tokenizeShakespeare("100-0.txt")
     unigrams = generateUnigrams(tokens)
     unigramsRelFreq = getRelFrequencies(unigrams, getNgramCount(unigrams))
-    
     unigramsCumFreq = getCumFrequencies(unigramsRelFreq)
     print "Unigrams generated."
+    
     bigrams = generateBigrams(tokens)
+    bigramsRelFreq = getRelFrequencies(bigrams, getNgramCount(bigrams))
+    bigramsCumFreq = getCumFrequencies(bigramsRelFreq)
     print "Bigrams generated."
+    
     trigrams = generateTrigrams(tokens)
+    trigramsRelFreq = getRelFrequencies(trigrams, getNgramCount(trigrams))
+    trigramsCumFreq = getCumFrequencies(trigramsRelFreq)
     print "Trigrams generated."
     quadgrams = generateQuadgrams(tokens)
+    quadgramsRelFreq = getRelFrequencies(quadgrams, getNgramCount(quadgrams))
+    quadgramsCumFreq = getCumFrequencies(quadgramsRelFreq)
     print "Quadgrams generated."
+    
     print ""
     print "Unigram sentences:"
-    for i in range(5):
-       print(buildUnigramSentence(unigramsCumFreq, 10))
-
+    for i in range(1):
+        print(buildNgramSentence(unigramsCumFreq, 12))
     print ""
     print "Bigram sentences:"
-        for i in range(5):
-            print(buildUnigramSentence(bigramsCumFreq, 6))
+    for i in range(1):
+        print(buildNgramSentence(bigramsCumFreq, 6))
+    print ""
+    print "Trigram sentences:"
+    for i in range(1):
+        print(buildNgramSentence(trigramsCumFreq, 4))
+    print ""
+    print "Quadgram sentences:"
+    for i in range(1):
+        print(buildNgramSentence(quadgramsCumFreq, 3))
+
