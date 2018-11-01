@@ -218,11 +218,13 @@ def buildUnigramSentence(cumFrequencies, length):
     sentence += "."
     return sentence
 
-def buildNgramSentence(cumFrequencies, length):
+def buildNgramSentence(cumFrequencies, length, includeMarkers=False):
     # converts cumFrequencies to a tuple of words and their cumulative
     # probability.
     cumFrequencies = sorted(cumFrequencies.items(), key=lambda x: x[1])
     sentence = ""
+    if includeMarkers:
+        sentence += "<s>"
     for i in range(length):
         value = random.uniform(0.0,1)
         for word in cumFrequencies:
@@ -236,6 +238,8 @@ def buildNgramSentence(cumFrequencies, length):
                     sentence += " " + word[0]
                 break
     sentence += "."
+    if includeMarkers:
+        sentence += "</s>"
     return sentence
 
 if __name__ == "__main__":
