@@ -295,5 +295,5 @@ if __name__ == "__main__":
     print ""
     print "Quadgram sentences:"
     for i in range(1):
-        quadgramSentence = buildNgramSentence(quadgramsCumFreq, 3, includeMarkers)
+        quadgramSentence = buildNgramSentence(quadgramsCumFreq, 3)
         print(quadgramSentence)
