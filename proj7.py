@@ -43,7 +43,7 @@ append <s> to start
 append </s> to end
 """
 def tokenizeShakespeare(fileName):
-    file = open(fileName)
+    file = open(fileName,"r")
     text = getFileContents(file)
     file.close()
     new = []
@@ -225,7 +225,7 @@ if __name__ == "__main__":
         includeMarkers = False
 
     # CREATE TOKENS
-    tokens = tokenizeShakespeare("100-0.txt")
+    tokens = tokenizeShakespeare("shakespeare.txt")
 
     # UNIGRAMS
     unigrams = generateUnigrams(tokens)
