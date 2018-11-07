@@ -5,7 +5,7 @@ Zagmail address for Team Member #1: tgreenside@zagmail.gonzaga.edu
 Project 7: This project uses statistics, unigrams, bigrams, trigrams, and
 quadgrams via the Bogensberger-Johnson Cumulative Probability Technique to
 construct sentences.
-Due: 1 November 2018
+Due: 9 November 2018
 Usage: python proj7.py
 """
 import random, copy, pickle
@@ -39,7 +39,7 @@ if __name__ == "__main__":
 
     # UNPICKLE DICTIONARIES
     print "Retrieving data from pickled file."
-    
+
     file = open("proj7b.pkl", "rb")
     unigramsCumFreq, bigramsCumFreq, trigramsCumFreq, quadgramsCumFreq = \
         pickle.load(file)
