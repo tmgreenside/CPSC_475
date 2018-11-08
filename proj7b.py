@@ -30,15 +30,16 @@ def buildNgramSentence(cumFrequencies, length, includeMarkers=False):
     for i in range(length):
         value = random.uniform(0.0,1)
         for word in cumFrequencies:
-            if word[1] > value and word[0] == "<s>" and word[0] != "</s>":
-                if i == 0:
-                    firstWord = ""
-                    firstWord += word[0][0].upper()
-                    firstWord += word[0][1:]
-                    sentence += firstWord
-                else:
-                    sentence += " " + word[0]
-                break
+            while word[:3] == "<s>" and word[-4:] != "</s>":
+                if word[1] > value
+                    if i == 0:
+                        firstWord = ""
+                        firstWord += word[0][0].upper()
+                        firstWord += word[0][1:]
+                        sentence += firstWord
+                    else:
+                        sentence += " " + word[0]
+                    break
     sentence += "."
         #if includeMarkers:
         #sentence += "</s>"
