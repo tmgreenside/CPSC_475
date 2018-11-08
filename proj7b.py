@@ -54,11 +54,6 @@ if __name__ == "__main__":
 
     numSentences = 5
 
-    markers = raw_input("Would you like to include start and end markers? (Y/N)\n")
-    if "y" in markers.lower():
-        includeMarkers = True
-    else:
-        includeMarkers = False
 
     #PRINT SENTENCES
     print ""
@@ -69,15 +64,15 @@ if __name__ == "__main__":
     print ""
     print "Bigram sentences:"
     for i in range(numSentences):
-        bigramSentence = buildNgramSentence(bigramsCumFreq, 6, includeMarkers)
+        bigramSentence = buildNgramSentence(bigramsCumFreq, 6)
         print(bigramSentence)
     print ""
     print "Trigram sentences:"
     for i in range(numSentences):
-        trigramSentence = buildNgramSentence(trigramsCumFreq, 4, includeMarkers)
+        trigramSentence = buildNgramSentence(trigramsCumFreq, 4)
         print(trigramSentence)
     print ""
     print "Quadgram sentences:"
     for i in range(numSentences):
-        quadgramSentence = buildNgramSentence(quadgramsCumFreq, 3, includeMarkers)
+        quadgramSentence = buildNgramSentence(quadgramsCumFreq, 3)
         print(quadgramSentence)

@@ -55,12 +55,12 @@ def tokenizeShakespeare(fileName):
                 if char in line:
                     line = line.replace(char, "")
             line = line.lower().split()
-            #newline = ["<s>"]
+            newline = ["<s>"]
             newline = []
             for word in line:
                 newline.append(word)
-                #newline.append("</s>")
-                new.append(newline)
+            newline.append("</s>")
+            new.append(newline)
     return new
 
 """
@@ -201,8 +201,11 @@ if __name__ == "__main__":
     cumFrequencies = (unigramsCumFreq, bigramsCumFreq, trigramsCumFreq,
                         quadgramsCumFreq)
 
-    print "Dictionaries merged into one datastructure"
+    print "Dictionaries merged into one datastructure."
+    print "Finishing."
 
     file = open("proj7b.pkl", "wb")
     pickle.dump(cumFrequencies, file)
     file.close()
+
+    print "Done."
