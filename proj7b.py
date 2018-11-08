@@ -10,6 +10,13 @@ Usage: python proj7.py
 """
 import random, copy, pickle
 
+"""
+Builds a sentence with the given length, using the Bogensberger-Johnson
+Technique and Unigrams.
+
+Params: dictionary of cumulative frequencies, desired sentence length.
+Returns: a sentence with the given length.
+"""
 def buildNgramSentence(cumFrequencies, length, includeMarkers=False):
     # converts cumFrequencies to a tuple of words and their cumulative
     # probability.

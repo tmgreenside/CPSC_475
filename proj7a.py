@@ -112,7 +112,7 @@ def generateTrigrams(tokens):
     return trigrams
 
 """
-Create trigrams from the tokenized list. Create a data structure that holds
+Create quadgrams from the tokenized list. Create a data structure that holds
 the grams and their occurence counts.
 """
 def generateQuadgrams(tokens):
@@ -162,33 +162,6 @@ def getCumFrequencies(relFrequencies):
         cumFrequencies[ngram] = previous + float(relFrequencies[ngram])
         previous = previous + float(relFrequencies[ngram])
     return cumFrequencies
-
-"""
-Builds a sentence with the given length, using the Bogensberger-Johnson
-Technique and Unigrams.
-
-Params: dictionary of cumulative frequencies, desired sentence length.
-Returns: a sentence with the given length.
-"""
-def buildUnigramSentence(cumFrequencies, length):
-    # converts cumFrequencies to a tuple of words and their cumulative
-    # probability.
-    cumFrequencies = sorted(cumFrequencies.items(), key=lambda x: x[1])
-    sentence = ""
-    for i in range(length):
-        value = random.uniform(0.0,1)
-        for word in cumFrequencies:
-            if word[1] > value and word[0] != "<s>" and word[0] != "</s>":
-                if i == 0:
-                    firstWord = ""
-                    firstWord += word[0][0].upper()
-                    firstWord += word[0][1:]
-                    sentence += firstWord
-                else:
-                    sentence += " " + word[0]
-                break
-    sentence += "."
-    return sentence
 
 
 if __name__ == "__main__":
