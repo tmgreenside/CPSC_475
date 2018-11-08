@@ -10,17 +10,17 @@ Usage: python proj7.py
 """
 import random, copy, pickle
 
-def buildNgramSentence(cumFrequencies, length, includeMarkers=False):
+def buildNgramSentence(cumFrequencies, length):
     # converts cumFrequencies to a tuple of words and their cumulative
     # probability.
     cumFrequencies = sorted(cumFrequencies.items(), key=lambda x: x[1])
     sentence = ""
-    if includeMarkers:
-        sentence += "<s>"
+        #if includeMarkers:
+        #sentence += "<s>"
     for i in range(length):
         value = random.uniform(0.0,1)
         for word in cumFrequencies:
-            if word[1] > value and word[0] != "<s>" and word[0] != "</s>":
+            if word[1] > value and word[0] == "<s>" and word[0] != "</s>":
                 if i == 0:
                     firstWord = ""
                     firstWord += word[0][0].upper()
@@ -30,8 +30,8 @@ def buildNgramSentence(cumFrequencies, length, includeMarkers=False):
                     sentence += " " + word[0]
                 break
     sentence += "."
-    if includeMarkers:
-        sentence += "</s>"
+        #if includeMarkers:
+        #sentence += "</s>"
     return sentence
 
 
