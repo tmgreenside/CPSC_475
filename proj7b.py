@@ -52,30 +52,6 @@ def buildNgramSentence(cumFrequencies, length):
     # converts cumFrequencies to a tuple of words and their cumulative
     # probability.
     cumFrequencies = sorted(cumFrequencies.items(), key=lambda x: x[1])
-<<<<<<< HEAD
-    sentence = ""
-    
-    for i in range(length):
-        # random value
-        value = random.uniform(0.0,1)
-        for word in cumFrequencies:
-            if word[1] > value:
-                if word[0][:3] == "<s>":
-                    if i == 0:
-                        firstWord = ""
-                        firstWord += word[0][3].upper()
-                        firstWord += word[0][4:]
-                        sentence += firstWord
-
-    for i in range(length):
-        # random value
-        value = random.uniform(0.0,1)
-        for word in cumFrequencies:
-            if word[1] > value:
-                if "<s>" not in word[0]:
-                    sentence += " " + word[0]
-    sentence += "."
-=======
 
     sentence = ""
     while True:
@@ -83,7 +59,7 @@ def buildNgramSentence(cumFrequencies, length):
         value = random.uniform(0.0,1)
         for word in cumFrequencies:
             if word[1] > value and word[0][:3] == "<s>":
-                sentence += word[0][:3] + word[0][4].upper() + word[0][5:] + " "
+                sentence += word[0][4].upper() + word[0][5:] + " "#word[0][:3] + word[0][4].upper() + word[0][5:] + " "
                 startFound = True
                 break
         if startFound:
@@ -106,13 +82,14 @@ def buildNgramSentence(cumFrequencies, length):
         value = random.uniform(0.0,1)
         for word in cumFrequencies:
             if word[1] > value and word[0][-4:] == "</s>":
-                sentence += word[0][:-5] + "." + "</s>"
+                #sentence += word[0][:-5] + "." + "</s>"
+                sentence += word[0][:-5] + "."
+
                 stopFound = True
                 break
         if stopFound:
             break
 
->>>>>>> 0f9722da96dff0539b15c69d5b87f6f8f62b4124
     return sentence
 
 if __name__ == "__main__":
@@ -127,16 +104,28 @@ if __name__ == "__main__":
 
     numSentences = 5
 
+    wholeUnigramSentence = ""
+    wholeBigramSentence = ""
+    wholeTrigramSentence = ""
+    wholeQuadgramSentence = ""
+
     #PRINT SENTENCES
     print "\nUnigram sentences:"
     for i in range(numSentences):
-        print buildUnigramSentence(unigramsCumFreq, 12)
+        wholeUnigramSentence = buildUnigramSentence(unigramsCumFreq, 12) + " " + wholeUnigramSentence
+    print wholeUnigramSentence
+
     print "\nBigram sentences:"
     for i in range(numSentences):
-        print buildNgramSentence(bigramsCumFreq, 6)
+        wholeBigramSentence = buildNgramSentence(bigramsCumFreq, 6) + " " + wholeBigramSentence
+    print wholeBigramSentence
+
     print "\nTrigram sentences:"
     for i in range(numSentences):
-        print buildNgramSentence(trigramsCumFreq, 4)
+        wholeTrigramSentence = buildNgramSentence(trigramsCumFreq, 4) + " " + wholeTrigramSentence
+    print wholeTrigramSentence
+
     print "\nQuadgram sentences:"
     for i in range(numSentences):
-        print buildNgramSentence(quadgramsCumFreq, 3)
+        wholeQuadgramSentence = buildNgramSentence(quadgramsCumFreq, 3) + " " + wholeQuadgramSentence
+    print wholeQuadgramSentence
