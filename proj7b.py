@@ -12,17 +12,47 @@ import random, copy, pickle
 
 """
 Builds a sentence with the given length, using the Bogensberger-Johnson
-Technique and Unigrams.
+Technique.
 
 Params: dictionary of cumulative frequencies, desired sentence length.
 Returns: a sentence with the given length.
 """
+def buildUnigramSentence(cumFrequencies, length):
+    # converts cumFrequencies to a tuple of words and their cumulative
+    # probability.
+    cumFrequencies = sorted(cumFrequencies.items(), key=lambda x: x[1])
+    for gram in cumFrequencies:
+        if gram[0] == "<s>" or gram[0] == "</s>":
+            cumFrequencies.remove(gram)
+    sentence = ""
+    for i in range(length):
+        value = random.uniform(0.0,1)
+        for word in cumFrequencies:
+            if word[1] > value:
+                if i == 0:
+                    firstWord = ""
+                    firstWord += word[0][0].upper()
+                    firstWord += word[0][1:]
+                    sentence += firstWord
+                else:
+                    sentence += " " + word[0]
+                break
+    sentence += "."
+    return sentence
 
+"""
+Builds a sentence with the given length, using the Bogensberger-Johnson
+Technique and Unigrams. Assumes that these are not unigrams.
+
+Params: dictionary of cumulative frequencies, desired sentence length.
+Returns: a sentence with the given length.
+"""
 def buildNgramSentence(cumFrequencies, length):
 
     # converts cumFrequencies to a tuple of words and their cumulative
     # probability.
     cumFrequencies = sorted(cumFrequencies.items(), key=lambda x: x[1])
+<<<<<<< HEAD
     sentence = ""
     
     for i in range(length):
@@ -45,6 +75,44 @@ def buildNgramSentence(cumFrequencies, length):
                 if "<s>" not in word[0]:
                     sentence += " " + word[0]
     sentence += "."
+=======
+
+    sentence = ""
+    while True:
+        startFound = False
+        value = random.uniform(0.0,1)
+        for word in cumFrequencies:
+            if word[1] > value and word[0][:3] == "<s>":
+                sentence += word[0][:3] + word[0][4].upper() + word[0][5:] + " "
+                startFound = True
+                break
+        if startFound:
+            break
+
+    for i in range(1,length-1):
+        while True:
+            startFound = True
+            value = random.uniform(0.0,1)
+            for word in cumFrequencies:
+                if word[1] > value and "s>" not in word[0]:
+                    sentence += word[0] + " "
+                    startFound = False
+                    break
+            if not startFound:
+                break
+
+    while True:
+        stopFound = False
+        value = random.uniform(0.0,1)
+        for word in cumFrequencies:
+            if word[1] > value and word[0][-4:] == "</s>":
+                sentence += word[0][:-5] + "." + "</s>"
+                stopFound = True
+                break
+        if stopFound:
+            break
+
+>>>>>>> 0f9722da96dff0539b15c69d5b87f6f8f62b4124
     return sentence
 
 if __name__ == "__main__":
@@ -59,33 +127,16 @@ if __name__ == "__main__":
 
     numSentences = 5
 
-    #wholeUnigramSentence = ""
-    #wholeBigramSentence = ""
-    #wholeTrigramSentence = ""
-    wholeQuadgramSentence = ""
-    
     #PRINT SENTENCES
-    """print ""
-    print "Unigram sentences:"
+    print "\nUnigram sentences:"
     for i in range(numSentences):
-        unigramSentence = buildNgramSentence(unigramsCumFreq, 12)
-        wholeUnigramSentence = wholeUnigramSentence + " " + unigramSentence
-    print(wholeUnigramSentence)
-    print ""
-    print "Bigram sentences:"
+        print buildUnigramSentence(unigramsCumFreq, 12)
+    print "\nBigram sentences:"
     for i in range(numSentences):
-        bigramSentence = buildNgramSentence(bigramsCumFreq, 6)
-        wholeBigramSentence = wholeBigramSentence + " " + bigramSentence
-    print(wholeBigramSentence)
-    print ""
-    print "Trigram sentences:"
+        print buildNgramSentence(bigramsCumFreq, 6)
+    print "\nTrigram sentences:"
     for i in range(numSentences):
-        trigramSentence = buildNgramSentence(trigramsCumFreq, 4)
-        wholeTrigramSentence = wholeTrigramSentence + " " + trigramSentence
-    print(wholeTrigramSentence)
-    print "" """
-    print "Quadgram sentences:"
+        print buildNgramSentence(trigramsCumFreq, 4)
+    print "\nQuadgram sentences:"
     for i in range(numSentences):
-        quadgramSentence = buildNgramSentence(quadgramsCumFreq, 3)
-        wholeQuadgramSentence = wholeQuadgramSentence + " " + quadgramSentence
-    print(wholeQuadgramSentence)
+        print buildNgramSentence(quadgramsCumFreq, 3)
