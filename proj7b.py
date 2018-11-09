@@ -104,9 +104,15 @@ if __name__ == "__main__":
     numSentences = 5
 
     #PRINT SENTENCES
-    print "Unigram sentences:"
+    print "\nUnigram sentences:"
     for i in range(numSentences):
         print buildUnigramSentence(unigramsCumFreq, 12)
-    print "Quadgram sentences:"
+    print "\nBigram sentences:"
+    for i in range(numSentences):
+        print buildNgramSentence(bigramsCumFreq, 6)
+    print "\nTrigram sentences:"
+    for i in range(numSentences):
+        print buildNgramSentence(trigramsCumFreq, 4)
+    print "\nQuadgram sentences:"
     for i in range(numSentences):
         print buildNgramSentence(quadgramsCumFreq, 3)
